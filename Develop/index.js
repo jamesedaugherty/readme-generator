@@ -1,6 +1,6 @@
 // TODO: Include packages needed for this application
-const inquirer = require('inquirer');
 const fs = require('fs');
+const inquirer = require('inquirer');
 const util = require('util');
 
 // TODO: Create an array of questions for user input
@@ -29,6 +29,7 @@ const questions = [
         type: "list",
         name: "license",
         message: "What kind of license should your project have?",
+        options: ['MIT', 'GPLv2', 'Apache', 'ISC'],
       },
       {
         type: "input",
@@ -53,13 +54,21 @@ const questions = [
     
 ];
 
+
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {
-    
+    fs.writeFile(fileName, data, err => {
+        if (err) {
+            return console.log(err);
+        }
+        console.log('README has been created')
+    });
 }
 
 // TODO: Create a function to initialize app
-function init() {}
+function init() {
+    inquirer.prompt(questions).then(data)
+}
 
 // Function call to initialize app
 init();
